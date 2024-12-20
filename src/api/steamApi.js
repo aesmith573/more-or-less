@@ -14,7 +14,6 @@ env.config({ path:
   )});
 
 const apiKey = process.env.STEAM_API_KEY;
-console.log(`API Key: ${apiKey}`);
 
 const app = express();
 const port = 3000;
