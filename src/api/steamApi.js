@@ -21,9 +21,28 @@ const port = 3000;
 // Middleware for JSON parsing
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send("Hello World!")
+app.get('/', async (req, res) => {
+  try {
+    res.send("Welcome!"); 
+  } catch (err) {
+    console.err(err.message); 
+    res.json({ error: "Could not welcome :(" })
+  }
 })
+
+app.get('/api/players/:appId', async (req, res) => {
+  const appId = 570;
+  const url = `https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?format=json&key=${apiKey}&appid=${appId}`;
+
+  try {
+    const response = await axios.get(url); 
+    const playerCount = response.data.response.player_count; 
+    res.send(`Current Dota 2 players: ${playerCount}`);
+  } catch (err) {
+    console.error("Error fetching game details:", err.message);
+    res.status(500).json({ error: "Failed to fetch game details" });
+  }
+});
 
 app.listen(port, () => {
   console.log(`Now listening on port: ${port}`);
