@@ -18,6 +18,9 @@ const apiKey = process.env.STEAM_API_KEY;
 const app = express();
 const port = 3000;
 
+// Middleware for JSON parsing
+app.use(express.json());
+
 app.get('/', (req, res) => {
   res.send("Hello World!")
 })
