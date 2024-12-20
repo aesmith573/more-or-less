@@ -1,12 +1,20 @@
 import express from "express";
 import axios from "axios";
-import dotenv from "dotenv";
+import env from "dotenv";
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-dotenv.config();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const apiKey = process.env.VITE_STEAM_API_KEY;
+env.config({ path: 
+  path.resolve(__dirname,
+    "../../.env"
+  )});
+
+const apiKey = process.env.STEAM_API_KEY;
 console.log(`API Key: ${apiKey}`);
-
 
 const app = express();
 const port = 3000;
