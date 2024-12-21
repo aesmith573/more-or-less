@@ -31,13 +31,13 @@ app.get('/', async (req, res) => {
 })
 
 app.get('/api/players/:appId', async (req, res) => {
-  const appId = 570;
+  const appId = req.params.appId;
   const url = `https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?format=json&key=${apiKey}&appid=${appId}`;
 
   try {
     const response = await axios.get(url); 
     const playerCount = response.data.response.player_count; 
-    res.send(`Current Dota 2 players: ${playerCount}`);
+    res.send(`Current players for app ${appId}: ${playerCount}`);
   } catch (err) {
     console.error("Error fetching game details:", err.message);
     res.status(500).json({ error: "Failed to fetch game details" });
